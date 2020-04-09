@@ -14,7 +14,7 @@ export class Store {
   }
 
 
-  dispatch(action: { payload: { label: string; complete: boolean }; type: string }) {
+  dispatch(action: any) {
     this.state = this.reduce(this.state, action)
     this.notify()
   }

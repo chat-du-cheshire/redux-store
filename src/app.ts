@@ -1,5 +1,5 @@
 import { renderTodos } from './utils';
-import {reducer, Store} from "./store";
+import {ADD_TODO, AddTodo, reducer, RemoveTodo, Store} from "./store";
 
 const input = document.querySelector('input') as HTMLInputElement;
 const button = document.querySelector('button') as HTMLButtonElement;
@@ -19,10 +19,7 @@ button.addEventListener(
 
     const payload = { label: input.value, complete: false };
 
-    store.dispatch({
-      type: 'ADD_TODO',
-      payload
-    });
+    store.dispatch(new AddTodo(payload));
 
     input.value = '';
   },
@@ -38,7 +35,8 @@ destroy.addEventListener('click', unsubscribe, false);
 todoList.addEventListener('click', function(event) {
   const target = event.target as HTMLButtonElement;
   if (target.nodeName.toLowerCase() === 'button') {
-    console.log(target);
+    const payload = JSON.parse(target.dataset.todo as string);
+    store.dispatch(new RemoveTodo(payload));
   }
 });
 
