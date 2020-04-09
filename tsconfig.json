@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
+    "lib": ["esnext", "dom"],
     "allowJs": true,
     "outDir": "dist",
     "noEmitOnError": true,

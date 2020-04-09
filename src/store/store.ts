@@ -8,16 +8,17 @@ export class Store {
   }
 
   constructor(reducers = {}, initialState = {}) {
-    this.state = initialState;
+    this.reducers = reducers;
+    this.state = this.reduce(initialState, {});
   }
 
 
-  dispatch(param: { payload: { label: string; complete: boolean }; type: string }) {
-    this.state = {
-      ...this.state,
-      todos: this.state.todos.concat(param.payload)
-    }
+  dispatch(action: { payload: { label: string; complete: boolean }; type: string }) {
+    this.state = this.reduce(this.state, action)
+  }
 
-    console.log(this.state)
+  private reduce(state: any, action: any) {
+    return Object.entries(this.reducers).reduce(
+      (newState, [key, reducer]) => ({...newState, [key]: reducer(state[key], action)}), {});
   }
 }
