@@ -12,4 +12,12 @@ export class Store {
   }
 
 
+  dispatch(param: { payload: { label: string; complete: boolean }; type: string }) {
+    this.state = {
+      ...this.state,
+      todos: this.state.todos.concat(param.payload)
+    }
+
+    console.log(this.state)
+  }
 }
